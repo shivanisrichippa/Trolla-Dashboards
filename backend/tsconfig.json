@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "paths": {
+      "@routes/*": ["routes/*"],
+      "@models/*": ["models/*"]
+    },
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  }
+}
