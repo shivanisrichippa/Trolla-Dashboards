@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+export const backendUrl =  process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function Logout() {
   const router = useRouter();
@@ -11,7 +12,7 @@ export default function Logout() {
     const handleLogout = async () => {
       try {
         // Make a request to the logout API
-        await axios.post("http://localhost:4000/api/auth/logout", {}, {
+        await axios.post(`${backendUrl}/api/auth/logout`, {}, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`
           }

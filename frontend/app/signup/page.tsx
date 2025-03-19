@@ -4,6 +4,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { backendUrl } from "../login/page";
+
 
 export default function SignupPage() {
   const router = useRouter();
@@ -19,7 +21,7 @@ export default function SignupPage() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:4000/api/user/register", { 
+      const response = await fetch(`${backendUrl}/api/user/register`, { 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),

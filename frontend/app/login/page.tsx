@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+// const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+export const backendUrl =  process.env.NEXT_PUBLIC_BACKEND_URL;
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -14,7 +16,7 @@ const LoginPage: React.FC = () => {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:4000/api/auth/login', { email, password });
+      const response = await axios.post(`${backendUrl}/api/auth/login`, { email, password });
       
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);

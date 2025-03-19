@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Sidebar from "../src/components/Sidebar"; 
 import { motion } from "framer-motion";
 import axios from "axios"; 
+export const backendUrl =  process.env.NEXT_PUBLIC_BACKEND_URL;
 
 const Dashboard: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -22,7 +23,7 @@ const Dashboard: React.FC = () => {
       } else {
         setIsAuthenticated(true);
 
-        axios.get("http://localhost:4000/api/user", {
+        axios.get(`${backendUrl}/api/user`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

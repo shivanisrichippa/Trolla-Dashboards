@@ -23,7 +23,7 @@ export default function Sidebar() {
 
       {/* Navigation Links */}
       <nav className="flex flex-col space-y-4">
-        <SidebarItem href="/" icon={<FiHome />} label="Dashboard" isOpen={isOpen} />
+        <SidebarItem href="/dashboard" icon={<FiHome />} label="Dashboard" isOpen={isOpen} />
         <SidebarItem href="/profile" icon={<FiUser />} label="Profile" isOpen={isOpen} />
         <SidebarItem href="/settings" icon={<FiSettings />} label="Settings" isOpen={isOpen} />
         <SidebarItem href="/logout" icon={<FiLogOut />} label="Logout" isOpen={isOpen} />
