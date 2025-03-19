@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -5,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Sidebar from "../src/components/Sidebar"; 
 import { motion } from "framer-motion";
 import axios from "axios"; 
+
 const Dashboard: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [name, setName] = useState<string | null>(null);
@@ -13,17 +15,16 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const token = localStorage.getItem("token");
-      
+
       if (!token) {
         setIsAuthenticated(false);
         router.replace("/login");
       } else {
         setIsAuthenticated(true);
 
-        axios
-        .get("http://localhost:4000/api/auth/get-username", {
+        axios.get("http://localhost:4000/api/user", {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
           },
         })
         .then((response) => {
@@ -35,12 +36,10 @@ const Dashboard: React.FC = () => {
           }
         })
         .catch((error) => {
-          if (error.response) {
-            console.error("Error fetching username:", error.response.data);
-          } else if (error.request) {
-            console.error("No response received from the server.");
-          } else {
-            console.error("Request setup error:", error.message);
+          console.error("Error fetching username:", error.response?.data || error.message);
+          if (error.response?.status === 403) {
+            localStorage.removeItem("token");
+            router.replace("/login");
           }
         });
       }
@@ -70,12 +69,7 @@ const Dashboard: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          <span
-            className="mr-2 animate-wave"
-            style={{ display: "inline-block" }}
-          >
-            👋
-          </span>
+          <span className="mr-2 animate-wave" style={{ display: "inline-block" }}>👋</span>
           Hi {name || "User"}! Welcome!!!
         </motion.h1>
 

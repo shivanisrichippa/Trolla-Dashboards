@@ -1,16 +1,1 @@
 @import "tailwindcss";
-/pages
-  /api
-    /user
-      register.ts
-      index.ts (for fetching user data)
-    /auth
-      login.ts
-      logout.ts
-/src
-  /components
-    LoginForm.tsx
-    RegisterForm.tsx
-    Dashboard.tsx
-  /utils
-    auth.ts (For handling token-related functions)

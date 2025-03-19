@@ -1,9 +1,9 @@
+
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { setAuthToken } from "../src/utils/auth";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -19,7 +19,7 @@ export default function SignupPage() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:4000/api/auth/register", { 
+      const response = await fetch("http://localhost:4000/api/user/register", { 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -28,7 +28,7 @@ export default function SignupPage() {
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || "Signup failed");
 
-      setAuthToken(data.token);
+      localStorage.setItem("token", data.token);  // Save token to localStorage
       router.push("/dashboard");
     } catch (err: any) {
       setError(err.message);
@@ -50,8 +50,7 @@ export default function SignupPage() {
               placeholder="Name"
               value={form.name}
               onChange={handleChange}
-              className="w-full p-3 mt-1 bg-[#1b1b1b] rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 text-white"
-              autoComplete="off"
+              className="w-full p-3 mt-1 bg-[#1b1b1b] rounded-lg text-white"
               required
             />
           </div>
@@ -63,8 +62,7 @@ export default function SignupPage() {
               placeholder="Email"
               value={form.email}
               onChange={handleChange}
-              className="w-full p-3 mt-1 bg-[#1b1b1b] rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 text-white"
-              autoComplete="off"
+              className="w-full p-3 mt-1 bg-[#1b1b1b] rounded-lg text-white"
               required
             />
           </div>
@@ -76,14 +74,13 @@ export default function SignupPage() {
               placeholder="Password"
               value={form.password}
               onChange={handleChange}
-              className="w-full p-3 mt-1 bg-[#1b1b1b] rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 text-white"
-              autoComplete="off"
+              className="w-full p-3 mt-1 bg-[#1b1b1b] rounded-lg text-white"
               required
             />
           </div>
           <button
             type="submit"
-            className="w-full p-3 mt-4 font-bold text-white bg-gray-700 rounded-lg hover:bg-gray-800 transition-all"
+            className="w-full p-3 mt-4 font-bold text-white bg-gray-700 rounded-lg hover:bg-gray-800"
           >
             Sign Up
           </button>
@@ -92,12 +89,10 @@ export default function SignupPage() {
         <div className="text-center mt-4">
           <p className="text-sm text-gray-400">
             Already have an account?{" "}
-            <Link href="/login" className="text-gray-300 hover:underline">
-              Login
-            </Link>
+            <Link href="/login" className="text-gray-300 hover:underline">Login</Link>
           </p>
         </div>
       </div>
     </div>
   );
-}
+} 
