@@ -1,3 +1,4 @@
+// Middleware functions for token handling
 export const setAuthToken = (token: string) => {
   if (typeof window !== "undefined") {
     localStorage.setItem("token", token);
